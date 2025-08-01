@@ -1,10 +1,20 @@
 export class Statistics {
+    /**
+     * Calculate the arithmetic mean (average) of an array of numbers
+     * @param numbers - Array of numbers to calculate the mean of
+     * @returns The arithmetic mean value
+     */
     static mean(numbers) {
         // Calculate sum and divide by the count of numbers
         const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         const mean = sum / numbers.length;
         return mean;
     }
+    /**
+     * Calculate the median (middle value) of an array of numbers
+     * @param numbers - Array of numbers to calculate the median of
+     * @returns The median value
+     */
     static median(numbers) {
         //Sort numbers
         numbers.sort();
@@ -20,6 +30,11 @@ export class Statistics {
             medianValue = (numbers[medianIndex] + numbers[medianIndex - 1]) / 2;
         }
     }
+    /**
+     * Calculate the mode (most frequent value(s)) of an array of numbers
+     * @param numbers - Array of numbers to calculate the mode of
+     * @returns Object containing the mode value(s) and their frequency
+     */
     static mode(numbers) {
         const modeMap = new Map();
         //Set each entry parameter into the map and assign it the number of times it appears in the list
@@ -50,10 +65,20 @@ export class Statistics {
             maxFrequency: maxFrequency
         };
     }
+    /**
+     * Find the minimum value in an array of numbers
+     * @param numbers - Array of numbers to find the minimum of
+     * @returns The minimum value
+     */
     static min(numbers) {
         const minValue = Math.min(...numbers);
         return minValue;
     }
+    /**
+     * Find the maximum value in an array of numbers
+     * @param numbers - Array of numbers to find the maximum of
+     * @returns The maximum value
+     */
     static max(numbers) {
         const maxValue = Math.max(...numbers);
         return maxValue;
