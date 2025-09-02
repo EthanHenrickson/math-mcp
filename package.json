@@ -5,13 +5,16 @@
   "module": "src/index.ts",
   "type":"module",
   "scripts": {
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
-    "build:stdio": "tsc",
+    "build": "npm run build:http",
+    "build:stdio": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "build:http": "npx @smithery/cli build",
 
-    "start": "node build/index.js",
+    "start": "npm run start:http",
     "start:http": "node .smithery/index.cjs",
-    "start:stdio": "node dist/index.js"
+    "start:stdio": "node build/index.js",
+
+    "http": "npm run build:http && npm run start:http",
+    "stdio": "npm run build:stdio && npm run start:stdio"
   },
   "keywords": [],
   "files": ["build"],
