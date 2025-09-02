@@ -2,10 +2,16 @@
   "name": "math-mcp",
   "version": "0.1.1",
   "main": "build/index.js",
+  "module": "src/index.ts",
   "type":"module",
   "scripts": {
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
-    "start": "npm run build && node build/index.js"
+    "build:stdio": "tsc",
+    "build:http": "npx @smithery/cli build",
+
+    "start": "node build/index.js",
+    "start:http": "node .smithery/index.cjs",
+    "start:stdio": "node dist/index.js"
   },
   "keywords": [],
   "files": ["build"],
