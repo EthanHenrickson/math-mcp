@@ -1,5 +1,6 @@
 # Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
 
+runtime: "typescript"
 startCommand:
   type: "http"
   configSchema:
