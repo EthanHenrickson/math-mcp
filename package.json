@@ -3,21 +3,21 @@
   "version": "0.1.1",
   "main": "build/index.js",
   "module": "src/index.ts",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "build": "npm run build:http",
     "build:stdio": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "build:http": "npx @smithery/cli build",
-
     "start": "npm run start:http",
     "start:http": "node .smithery/index.cjs",
     "start:stdio": "node build/index.js",
-
     "http": "npm run build:http && npm run start:http",
     "stdio": "npm run build:stdio && npm run start:stdio"
   },
   "keywords": [],
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "author": "",
   "license": "MIT",
   "description": "",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.2.4"
   }
 }

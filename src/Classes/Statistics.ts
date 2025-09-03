@@ -33,6 +33,8 @@ export class Statistics {
             //If number is even
             medianValue = (numbers[medianIndex] + numbers[medianIndex - 1]) / 2
         }
+
+        return medianValue
     }
 
     /**
