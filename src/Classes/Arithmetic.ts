@@ -83,4 +83,16 @@ export class Arithmetic {
         const round = Math.round(number)
         return round
     }
+
+    /**
+     * Get the remainder of a division equation.
+     * Ex: modulo(5,2) = 1
+     * @param numerator - The number to be divided
+     * @param denominator - The number to divide by
+     * @returns remainder of division
+     */
+    static modulo(numerator: number, denominator: number) {
+        const remainder = numerator % denominator
+        return remainder
+    }
 }
