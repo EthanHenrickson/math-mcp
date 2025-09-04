@@ -265,6 +265,72 @@ describe("Arithmetic", () => {
             expect(result).toBe(0);
         });
     });
+    describe("modulo()", () => {
+        it("should calculate modulo of two positive numbers", () => {
+            const result = Arithmetic.modulo(5, 2);
+            expect(result).toBe(1);
+        });
+        it("should calculate modulo with zero remainder", () => {
+            const result = Arithmetic.modulo(10, 5);
+            expect(result).toBe(0);
+        });
+        it("should calculate modulo with larger denominator", () => {
+            const result = Arithmetic.modulo(3, 5);
+            expect(result).toBe(3);
+        });
+        it("should calculate modulo with negative numerator", () => {
+            const result = Arithmetic.modulo(-7, 3);
+            expect(result).toBe(-1);
+        });
+        it("should calculate modulo with negative denominator", () => {
+            const result = Arithmetic.modulo(7, -3);
+            expect(result).toBe(1);
+        });
+        it("should calculate modulo with both negative numbers", () => {
+            const result = Arithmetic.modulo(-7, -3);
+            expect(result).toBe(-1);
+        });
+        it("should calculate modulo with decimal numbers", () => {
+            const result = Arithmetic.modulo(5.5, 2);
+            expect(result).toBeCloseTo(1.5);
+        });
+        it("should calculate modulo with decimal denominator", () => {
+            const result = Arithmetic.modulo(7, 2.5);
+            expect(result).toBeCloseTo(2);
+        });
+        it("should calculate modulo with both decimal numbers", () => {
+            const result = Arithmetic.modulo(7.5, 2.3);
+            expect(result).toBeCloseTo(0.6);
+        });
+        it("should handle modulo with zero numerator", () => {
+            const result = Arithmetic.modulo(0, 5);
+            expect(result).toBe(0);
+        });
+        it("should handle modulo by one", () => {
+            const result = Arithmetic.modulo(7, 1);
+            expect(result).toBe(0);
+        });
+        it("should handle modulo by zero (returns NaN)", () => {
+            const result = Arithmetic.modulo(5, 0);
+            expect(isNaN(result)).toBeTruthy();
+        });
+        it("should handle same numbers", () => {
+            const result = Arithmetic.modulo(5, 5);
+            expect(result).toBe(0);
+        });
+        it("should handle large numbers", () => {
+            const result = Arithmetic.modulo(1000000, 7);
+            expect(result).toBe(1);
+        });
+        it("should handle very small decimal numbers", () => {
+            const result = Arithmetic.modulo(0.1, 0.03);
+            expect(result).toBeCloseTo(0.01);
+        });
+        it("should preserve sign of numerator for negative results", () => {
+            const result = Arithmetic.modulo(-10, 3);
+            expect(result).toBe(-1);
+        });
+    });
     describe("Edge cases", () => {
         it("should handle Infinity in addition", () => {
             const result = Arithmetic.add(Infinity, 5);

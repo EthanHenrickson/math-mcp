@@ -11,6 +11,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { Arithmetic } from "./Classes/Arithmetic.js";
 import { Statistics } from "./Classes/Statistics.js";
+import { Trigonometric } from "./Classes/Trigonometric.js";
 
 export default function createServer() {
     const mathServer = new McpServer({
@@ -98,6 +99,23 @@ export default function createServer() {
         numbers: z.array(z.number()).min(1).describe("Array of numbers to sum")
     }, async ({ numbers }) => {
         const value = Arithmetic.sum(numbers)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Modulo operation
+     * Finds the remainder of a division
+     */
+    mathServer.tool("modulo", "Divides two numbers and returns the remainder", {
+        numerator: z.number().describe("The number being divided (numerator)"),
+        denominator: z.number().describe("The number to divide by (denominator)")
+    }, async ({ numerator, denominator }) => {
+        const value = Arithmetic.modulo(numerator, denominator)
         return {
             content: [{
                 type: "text",
@@ -233,6 +251,134 @@ export default function createServer() {
         number: z.number().describe("The number to round"),
     }, async ({ number }) => {
         const value = Arithmetic.round(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Sin operation
+     * Calculates the sine of a number in radians
+     */
+    mathServer.tool("sin", "Calculates the sine of a number in radians", {
+        number: z.number().describe("The number in radians to find the sine of")
+    }, async ({ number }) => {
+        const value = Trigonometric.sin(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Arcsin operation
+     * Calculates the arcsine of a number in radians
+     */
+    mathServer.tool("arcsin", "Calculates the arcsine of a number in radians", {
+        number: z.number().describe("The number to find the arcsine of")
+    }, async ({ number }) => {
+        const value = Trigonometric.arcsin(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Cos operation
+     * Calculates the cosine of a number in radians
+     */
+    mathServer.tool("cos", "Calculates the cosine of a number in radians", {
+        number: z.number().describe("The number in radians to find the cosine of")
+    }, async ({ number }) => {
+        const value = Trigonometric.cos(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Arccos operation
+     * Calculates the arccosine of a number in radians
+     */
+    mathServer.tool("arccos", "Calculates the arccosine of a number in radians", {
+        number: z.number().describe("The number to find the arccosine of")
+    }, async ({ number }) => {
+        const value = Trigonometric.arccos(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Tan operation
+     * Calculates the tangent of a number in radians
+     */
+    mathServer.tool("tan", "Calculates the tangent of a number in radians", {
+        number: z.number().describe("The number in radians to find the tangent of")
+    }, async ({ number }) => {
+        const value = Trigonometric.tan(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Arctan operation
+     * Calculates the arctangent of a number in radians
+     */
+    mathServer.tool("arctan", "Calculates the arctangent of a number in radians", {
+        number: z.number().describe("The number to find the arctangent of")
+    }, async ({ number }) => {
+        const value = Trigonometric.arctan(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Radians to Degrees operation
+     * Converts a radian value to its equivalent in degrees
+     */
+    mathServer.tool("radiansToDegrees", "Converts a radian value to its equivalent in degrees", {
+        number: z.number().describe("The number in radians to convert to degrees")
+    }, async ({ number }) => {
+        const value = Trigonometric.radiansToDegrees(number)
+        return {
+            content: [{
+                type: "text",
+                text: `${value}`
+            }]
+        }
+    })
+
+    /**
+     * Degrees to Radians operation
+     * Converts a degree value to its equivalent in radians
+     */
+    mathServer.tool("degreesToRadians", "Converts a degree value to its equivalent in radians", {
+        number: z.number().describe("The number in degrees to convert to radians")
+    }, async ({ number }) => {
+        const value = Trigonometric.degreesToRadians(number)
         return {
             content: [{
                 type: "text",
