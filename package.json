@@ -12,7 +12,8 @@
     "start:http": "node .smithery/index.cjs",
     "start:stdio": "node build/index.js",
     "http": "npm run build:http && npm run start:http",
-    "stdio": "npm run build:stdio && npm run start:stdio"
+    "stdio": "npm run build:stdio && npm run start:stdio",
+    "test": "npx vitest run src/"
   },
   "keywords": [],
   "files": [
