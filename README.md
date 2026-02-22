@@ -1,7 +1,5 @@
 # Math-MCP
 
-[![smithery badge](https://smithery.ai/badge/@EthanHenrickson/math-mcp)](https://smithery.ai/server/@EthanHenrickson/math-mcp)
-
 A Model Context Protocol (MCP) server that provides basic mathematical, statistical and trigonometric functions to Large Language Models (LLMs). This server enables LLMs to perform accurate numerical calculations through a simple API.
 
 <a href="https://glama.ai/mcp/servers/exa5lt8dgd">
@@ -16,16 +14,6 @@ A Model Context Protocol (MCP) server that provides basic mathematical, statisti
 - Trigonometric functions (sin, cos, tan, and their inverses; degrees/radians conversions)
 
 ## Installation
-### Installing via Smithery
-
-To install Math-MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@EthanHenrickson/math-mcp):
-
-```bash
-npx -y @smithery/cli install @EthanHenrickson/math-mcp --client claude
-```
-
-### Installing Manually
-
 Just clone this repository and save it locally somewhere on your computer.
 
 Then add this server to your MCP configuration file:
