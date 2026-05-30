@@ -8,12 +8,14 @@ A Model Context Protocol (MCP) server that provides basic mathematical, statisti
 
 ## Features
 
-- Basic arithmetic operations (addition, subtraction, multiplication, division)
-- Statistical functions (sum, mean, median, mode, min, max)
+- Basic arithmetic operations (addition, subtraction, multiplication, division, sum, modulo)
+- Statistical functions (mean, median, mode, min, max)
 - Rounding functions (floor, ceiling, round)
 - Trigonometric functions (sin, cos, tan, and their inverses; degrees/radians conversions)
 
 ## Installation
+> **Note:** Ensure you have [Node.js](https://nodejs.org/en/download) installed on your computer.
+
 Just clone this repository and save it locally somewhere on your computer.
 
 Then add this server to your MCP configuration file:
@@ -25,7 +27,25 @@ Then add this server to your MCP configuration file:
 }
 ```
 
+Here is an example for OpenCode
+
+```json
+{
+  "mcp": {
+    "math-mcp": {
+      "type": "local",
+      "command": [
+        "node",
+        "PATH\\TO\\PROJECT\\math-mcp\\build\\index.js"
+      ]
+    }
+  }
+}
+```
+
 Replace `PATH\\TO\\PROJECT` with the actual path to where you cloned the repository.
+
+> **Note:** This project comes prebuilt, so installation is easy but if you change anything in the code, rebuild the project with `npm run build`.
 
 ## Available Functions
 
@@ -36,7 +56,7 @@ The Math-MCP server provides the following mathematical operations:
 |----------|-------------|------------|
 | `add` | Adds two numbers together | `firstNumber`: The first addend<br>`secondNumber`: The second addend |
 | `subtract` | Subtracts the second number from the first number | `minuend`: The number to subtract from (minuend)<br>`subtrahend`: The number being subtracted (subtrahend) |
-| `multiply` | Multiplies two numbers together | `firstNumber`: The first number<br>`SecondNumber`: The second number |
+| `multiply` | Multiplies two numbers together | `firstNumber`: The first number<br>`secondNumber`: The second number |
 | `division` | Divides the first number by the second number | `numerator`: The number being divided (numerator)<br>`denominator`: The number to divide by (denominator) |
 | `sum` | Adds any number of numbers together | `numbers`: Array of numbers to sum |
 | `modulo` | Divides two numbers and returns the remainder | `numerator`: The number being divided (numerator)<br>`denominator`: The number to divide by (denominator) |
@@ -57,10 +77,10 @@ The Math-MCP server provides the following mathematical operations:
 | Function | Description | Parameters |
 |----------|-------------|------------|
 | `sin` | Calculates the sine of a number in radians | `number`: The number in radians to find the sine of |
-| `arcsin` | Calculates the arcsine of a number in radians | `number`: The number to find the arcsine of |
+| `arcsin` | Calculates the arcsine (in radians) of a number | `number`: The number to find the arcsine of |
 | `cos` | Calculates the cosine of a number in radians | `number`: The number in radians to find the cosine of |
-| `arccos` | Calculates the arccosine of a number in radians | `number`: The number to find the arccosine of |
+| `arccos` | Calculates the arccosine (in radians) of a number | `number`: The number to find the arccosine of |
 | `tan` | Calculates the tangent of a number in radians | `number`: The number in radians to find the tangent of |
-| `arctan` | Calculates the arctangent of a number in radians | `number`: The number to find the arctangent of |
+| `arctan` | Calculates the arctangent (in radians) of a number | `number`: The number to find the arctangent of |
 | `radiansToDegrees` | Converts a radian value to its equivalent in degrees | `number`: The number in radians to convert to degrees |
 | `degreesToRadians` | Converts a degree value to its equivalent in radians | `number`: The number in degrees to convert to radians |

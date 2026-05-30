@@ -1,18 +1,13 @@
 {
   "name": "math-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "build/index.js",
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "npm run build:http",
-    "build:stdio": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
-    "build:http": "npx @smithery/cli build",
-    "start": "npm run start:http",
-    "start:http": "node .smithery/index.cjs",
-    "start:stdio": "node build/index.js",
-    "http": "npm run build:http && npm run start:http",
-    "stdio": "npm run build:stdio && npm run start:stdio",
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "start": "node build/index.js",
+    "stdio": "npm run build && npm run start",
     "test": "npx vitest run src/"
   },
   "keywords": [],

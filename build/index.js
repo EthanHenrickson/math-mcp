@@ -54,9 +54,9 @@ export default function createServer() {
      */
     mathServer.tool("multiply", "Multiplies two numbers together", {
         firstNumber: z.number().describe("The first number"),
-        SecondNumber: z.number().describe("The second number")
-    }, async ({ firstNumber, SecondNumber }) => {
-        const value = Arithmetic.multiply(firstNumber, SecondNumber);
+        secondNumber: z.number().describe("The second number")
+    }, async ({ firstNumber, secondNumber }) => {
+        const value = Arithmetic.multiply(firstNumber, secondNumber);
         return {
             content: [{
                     type: "text",
@@ -248,9 +248,9 @@ export default function createServer() {
     });
     /**
      * Arcsin operation
-     * Calculates the arcsine of a number in radians
+     * Calculates the arcsine (in radians) of a number
      */
-    mathServer.tool("arcsin", "Calculates the arcsine of a number in radians", {
+    mathServer.tool("arcsin", "Calculates the arcsine (in radians) of a number", {
         number: z.number().describe("The number to find the arcsine of")
     }, async ({ number }) => {
         const value = Trigonometric.arcsin(number);
@@ -278,9 +278,9 @@ export default function createServer() {
     });
     /**
      * Arccos operation
-     * Calculates the arccosine of a number in radians
+     * Calculates the arccosine (in radians) of a number
      */
-    mathServer.tool("arccos", "Calculates the arccosine of a number in radians", {
+    mathServer.tool("arccos", "Calculates the arccosine (in radians) of a number", {
         number: z.number().describe("The number to find the arccosine of")
     }, async ({ number }) => {
         const value = Trigonometric.arccos(number);
@@ -308,9 +308,9 @@ export default function createServer() {
     });
     /**
      * Arctan operation
-     * Calculates the arctangent of a number in radians
+     * Calculates the arctangent (in radians) of a number
      */
-    mathServer.tool("arctan", "Calculates the arctangent of a number in radians", {
+    mathServer.tool("arctan", "Calculates the arctangent (in radians) of a number", {
         number: z.number().describe("The number to find the arctangent of")
     }, async ({ number }) => {
         const value = Trigonometric.arctan(number);
