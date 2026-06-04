@@ -1,82 +1,71 @@
 export class Trigonometric {
-
-    /**
-     * Calculate the sin of a number in radians
-     * @param number - The number to find the sin of
-     * @returns The sin of a number in radians
-     */
     static sin(number: number) {
-        const sin = Math.sin(number)
-        return sin
+        return Math.sin(number);
     }
 
-    /**
-     * Calculate the arcsin of a number in radians
-     * @param number - The number to find the arcsin of
-     * @returns The arcsin of a number in radians
-     */
     static arcsin(number: number) {
-        const arcsin = Math.asin(number)
-        return arcsin
+        return Math.asin(number);
     }
 
-    /**
-     * Calculate the cos of a number in radians
-     * @param number - The number to find the cos of
-     * @returns The cos of a number in radians
-     */
     static cos(number: number) {
-        const cos = Math.cos(number)
-        return cos
+        return Math.cos(number);
     }
 
-    /**
-     * Calculate the arccos of a number in radians
-     * @param number - The number to find the arccos of
-     * @returns The arccos of a number in radians
-     */
     static arccos(number: number) {
-        const arccos = Math.acos(number)
-        return arccos
+        return Math.acos(number);
     }
 
-    /**
-     * Calculate the tangent of a number in radians
-     * @param number - The number to find the tangent of
-     * @returns The tangent of a number in radians
-     */
     static tan(number: number) {
-        const tangent = Math.tan(number)
-        return tangent
+        return Math.tan(number);
     }
 
-    /**
-     * Calculate the arc tangent of a number in radians
-     * @param number - The number to find the arc tangent of
-     * @returns The arc tangent of a number in radians
-     */
     static arctan(number: number) {
-        const arctangent = Math.atan(number)
-        return arctangent
+        return Math.atan(number);
     }
 
-    /**
-     * Converts a radian into its equivalent value in degrees
-     * @param number - The number to get the degree of
-     * @returns The degree of the number
-     */
     static radiansToDegrees(number: number) {
-        const degrees = number * (180 / Math.PI)
-        return degrees
+        return number * (180 / Math.PI);
     }
 
-    /**
-     * Converts a degree into its equivalent value in radians
-     * @param number - The number to get the radians of
-     * @returns The radians of the number
-     */
     static degreesToRadians(number: number) {
-        const radians = number * (Math.PI / 180)
-        return radians
+        return number * (Math.PI / 180);
+    }
+
+    static csc(number: number): number {
+        return 1 / Math.sin(number);
+    }
+
+    static sec(number: number): number {
+        return 1 / Math.cos(number);
+    }
+
+    static cot(number: number): number {
+        return 1 / Math.tan(number);
+    }
+
+    static arctan2(y: number, x: number): number {
+        return Math.atan2(y, x);
+    }
+
+    static hypot(a: number, b: number): number {
+        return Math.hypot(a, b);
+    }
+
+    static lawOfCosines(a: number, b: number, angleC: number): number {
+        return Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC));
+    }
+
+    static polarToCartesian(r: number, theta: number): { x: number; y: number } {
+        return {
+            x: r * Math.cos(theta),
+            y: r * Math.sin(theta)
+        };
+    }
+
+    static cartesianToPolar(x: number, y: number): { r: number; theta: number } {
+        return {
+            r: Math.sqrt(x ** 2 + y ** 2),
+            theta: Math.atan2(y, x)
+        };
     }
 }

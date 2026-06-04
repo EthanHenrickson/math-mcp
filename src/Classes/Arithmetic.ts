@@ -1,98 +1,71 @@
 export class Arithmetic {
-    /**
-     * Add two numbers together
-     * @param firstNumber - The first number 
-     * @param secondNumber - The second number
-     * @returns sum
-     */
     static add(firstNumber: number, secondNumber: number): number {
-        const sum = firstNumber + secondNumber;
-        return sum
+        return firstNumber + secondNumber;
     }
 
-    /**
-     * Subtract one number from another
-     * @param minuend - The number to subtract from
-     * @param subtrahend - The number to subtract
-     * @returns difference
-     */
     static subtract(minuend: number, subtrahend: number) {
-        const difference = minuend - subtrahend
-        return difference
+        return minuend - subtrahend;
     }
 
-    /**
-     * Multiply two numbers together
-     * @param firstNumber - The first number
-     * @param secondNumber - The second number
-     * @returns product
-     */
     static multiply(firstNumber: number, secondNumber: number) {
-        const product = firstNumber * secondNumber
-        return product
+        return firstNumber * secondNumber;
     }
 
-    /**
-     * Divide one number by another
-     * @param numerator - The number to be divided
-     * @param denominator - The number to divide by
-     * @returns quotient
-     */
     static division(numerator: number, denominator: number) {
-        const quotient = numerator / denominator
-        return quotient
+        return numerator / denominator;
     }
 
-    /**
-     * Calculate the sum of an array of numbers
-     * @param numbers - Array of numbers to sum
-     * @returns sum of all numbers in the array
-     */
     static sum(numbers: number[]) {
-        // Use reduce to accumulate the sum, starting with 0
-        const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        return sum
+        return numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     }
 
-    /**
-     * Calculate the floor of a number
-     * @param number - Number to find the floor of
-     * @returns floor of the number
-     */
     static floor(number: number) {
-        const floor = Math.floor(number)
-        return floor
+        return Math.floor(number);
     }
 
-    /**
-     * Calculate the ceil of a number
-     * @param number - Number to find the ceil of
-     * @returns ceil of the number
-     */
     static ceil(number: number) {
-        const ceil = Math.ceil(number)
-        return ceil
+        return Math.ceil(number);
     }
 
-    /**
-     * Calculate the round of a number
-     * @param number - Number to find the round of
-     * @returns round of the number
-     */
     static round(number: number) {
-        const round = Math.round(number)
-        return round
+        return Math.round(number);
     }
 
-    /**
-     * Get the remainder of a division equation.
-     * Ex: modulo(5,2) = 1
-     * @param numerator - The number to be divided
-     * @param denominator - The number to divide by
-     * @returns remainder of division
-     */
     static modulo(numerator: number, denominator: number) {
-        const remainder = numerator % denominator
-        return remainder
+        return numerator % denominator;
+    }
+
+    static power(base: number, exponent: number): number {
+        return base ** exponent;
+    }
+
+    static sqrt(number: number): number {
+        return Math.sqrt(number);
+    }
+
+    static cbrt(number: number): number {
+        return Math.cbrt(number);
+    }
+
+    static root(number: number, n: number): number {
+        if (number < 0 && n % 2 === 1) {
+            return -((-number) ** (1 / n));
+        }
+        return number ** (1 / n);
+    }
+
+    static abs(number: number): number {
+        return Math.abs(number);
+    }
+
+    static factorial(number: number): number {
+        if (number < 0 || !Number.isInteger(number)) return NaN;
+        if (number === 0 || number === 1) return 1;
+        if (number > 170) return Infinity;
+        let result = 1;
+        for (let i = 2; i <= number; i++) {
+            result *= i;
+        }
+        return result;
     }
 }
