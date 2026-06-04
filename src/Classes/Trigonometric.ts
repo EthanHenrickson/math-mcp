@@ -81,8 +81,8 @@ export class Trigonometric {
             return {
                 amplitude, period: Infinity, periodDegrees: Infinity,
                 phaseShift: d, phaseShiftDescription,
-                verticalShift: c, midline: `y = ${c}`, range: `[${c - amplitude}, ${c + amplitude}]`,
-                maxValue: c + amplitude, minValue: c - amplitude
+                verticalShift: c, midline: `y = ${c}`, range: `[${c}, ${c}]`,
+                maxValue: c, minValue: c
             };
         }
         const period = 2 * Math.PI / Math.abs(k);

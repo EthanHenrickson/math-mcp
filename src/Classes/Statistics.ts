@@ -35,16 +35,16 @@ export class Statistics {
             }
         }
 
-        const modeResult: number[] = [];
+        const modes: number[] = [];
         for (const [key, value] of modeMap.entries()) {
             if (value === maxFrequency) {
-                modeResult.push(key);
+                modes.push(key);
             }
         }
 
         return {
-            modes: modeResult,
-            maxFrequency: maxFrequency
+            modes,
+            maxFrequency
         };
     }
 

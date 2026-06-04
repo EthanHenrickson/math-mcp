@@ -1,5 +1,5 @@
 import { Arithmetic } from './Arithmetic.js';
-import type { ArithmeticSequenceResult, GeometricSequenceResult, QuadraticIneqResult, QuadraticResult } from '../types.js';
+import type { ArithmeticSequenceResult, GeometricSequenceResult, InequalityOp, QuadraticIneqResult, QuadraticResult } from '../types.js';
 
 function formatComplex(rp: number, im: number, flipSign: boolean): string {
     const imag = flipSign ? -im : im;
@@ -7,7 +7,7 @@ function formatComplex(rp: number, im: number, flipSign: boolean): string {
     const sign = imag < 0 ? "-" : (rp === 0 ? "" : "+");
     const rpStr = rp === 0 ? "" : `${rp}`;
     const iStr = fmtI === "" ? "i" : `${fmtI}i`;
-    return `${rpStr}${sign}${iStr}`.replace(/^\+/, "").trim();
+    return `${rpStr}${sign}${iStr}`.trim();
 }
 
 export class Algebra {
@@ -65,7 +65,7 @@ export class Algebra {
         return { terms, nthTerm, sumFinite, sumInfinite };
     }
 
-    static quadraticInequalities(a: number, b: number, c: number, inequality: string): QuadraticIneqResult {
+    static quadraticInequalities(a: number, b: number, c: number, inequality: InequalityOp): QuadraticIneqResult {
         if (a === 0) {
             if (b === 0) {
                 let result: boolean;

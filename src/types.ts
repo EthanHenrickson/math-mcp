@@ -56,6 +56,8 @@ export interface GeometricSequenceResult {
     sumInfinite: number | null;
 }
 
+export type InequalityOp = ">" | ">=" | "<" | "<=";
+
 export interface QuadraticIneqResult {
     discriminant: number;
     roots: string;
