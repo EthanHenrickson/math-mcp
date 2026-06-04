@@ -1,4 +1,4 @@
-import type { CartCoord, PolarCoord, SinusoidalResult } from '../types.js';
+import type { CartesianCoordResult, PolarCoordResult, SinusoidalResult } from '../types.js';
 
 export class Trigonometric {
     static sin(number: number): number {
@@ -57,14 +57,14 @@ export class Trigonometric {
         return Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC));
     }
 
-    static polarToCartesian(r: number, theta: number): CartCoord {
+    static polarToCartesian(r: number, theta: number): CartesianCoordResult {
         return {
             x: r * Math.cos(theta),
             y: r * Math.sin(theta)
         };
     }
 
-    static cartesianToPolar(x: number, y: number): PolarCoord {
+    static cartesianToPolar(x: number, y: number): PolarCoordResult {
         return {
             r: Math.sqrt(x ** 2 + y ** 2),
             theta: Math.atan2(y, x)
@@ -73,6 +73,18 @@ export class Trigonometric {
 
     static sinusoidalFunction(a: number, k: number, d: number, c: number): SinusoidalResult {
         const amplitude = Math.abs(a);
+        if (k === 0) {
+            let phaseShiftDescription: string;
+            if (d > 0) phaseShiftDescription = `${d} units right`;
+            else if (d < 0) phaseShiftDescription = `${Math.abs(d)} units left`;
+            else phaseShiftDescription = "No phase shift";
+            return {
+                amplitude, period: Infinity, periodDegrees: Infinity,
+                phaseShift: d, phaseShiftDescription,
+                verticalShift: c, midline: `y = ${c}`, range: `[${c - amplitude}, ${c + amplitude}]`,
+                maxValue: c + amplitude, minValue: c - amplitude
+            };
+        }
         const period = 2 * Math.PI / Math.abs(k);
         const periodDegrees = 360 / Math.abs(k);
         const phaseShift = d;

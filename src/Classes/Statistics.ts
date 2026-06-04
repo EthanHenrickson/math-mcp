@@ -43,7 +43,7 @@ export class Statistics {
         }
 
         return {
-            modeResult: modeResult,
+            modes: modeResult,
             maxFrequency: maxFrequency
         };
     }

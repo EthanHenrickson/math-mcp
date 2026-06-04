@@ -114,7 +114,7 @@ export default function createServer() {
     register("mode", "Finds the most common number in a list of numbers", {
         numbers: z.array(z.number()).describe("Array of numbers to find the mode of")
     }, ({ numbers }) => Statistics.mode(numbers),
-    (r) => `Entries (${r.modeResult.join(', ')}) appeared ${r.maxFrequency} times`)
+    (r) => `Entries (${r.modes.join(', ')}) appeared ${r.maxFrequency} times`)
 
     register("min", "Finds the minimum value from a list of numbers", {
         numbers: z.array(z.number()).describe("Array of numbers to find the minimum of")
@@ -355,7 +355,7 @@ Max: ${r.maxValue}, Min: ${r.minValue}`)
         a: z.number().describe("The quadratic coefficient (a)"),
         b: z.number().describe("The linear coefficient (b)"),
         c: z.number().describe("The constant term (c)"),
-        inequality: z.string().describe("The inequality operator: >, >=, <, <=")
+        inequality: z.enum([">", ">=", "<", "<="]).describe("The inequality operator: >, >=, <, <=")
     }, ({ a, b, c, inequality }) => Algebra.quadraticInequalities(a, b, c, inequality),
     (r) => `Discriminant: ${r.discriminant}\nRoots: ${r.roots}\nSolution: ${r.solution}`)
 

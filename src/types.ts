@@ -1,5 +1,5 @@
 export interface ModeResult {
-    modeResult: number[];
+    modes: number[];
     maxFrequency: number;
 }
 
@@ -20,12 +20,12 @@ export interface FractionResult {
     denominator: number;
 }
 
-export interface CartCoord {
+export interface CartesianCoordResult {
     x: number;
     y: number;
 }
 
-export interface PolarCoord {
+export interface PolarCoordResult {
     r: number;
     theta: number;
 }

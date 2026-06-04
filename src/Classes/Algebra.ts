@@ -1,6 +1,15 @@
 import { Arithmetic } from './Arithmetic.js';
 import type { ArithmeticSequenceResult, GeometricSequenceResult, QuadraticIneqResult, QuadraticResult } from '../types.js';
 
+function formatComplex(rp: number, im: number, flipSign: boolean): string {
+    const imag = flipSign ? -im : im;
+    const fmtI = imag === 1 ? "" : imag === -1 ? "" : `${Math.abs(Math.round(imag * 1e12) / 1e12)}`;
+    const sign = imag < 0 ? "-" : (rp === 0 ? "" : "+");
+    const rpStr = rp === 0 ? "" : `${rp}`;
+    const iStr = fmtI === "" ? "i" : `${fmtI}i`;
+    return `${rpStr}${sign}${iStr}`.replace(/^\+/, "").trim();
+}
+
 export class Algebra {
     static log(base: number, value: number): number {
         if (base === 1) return NaN;
@@ -58,6 +67,14 @@ export class Algebra {
 
     static quadraticInequalities(a: number, b: number, c: number, inequality: string): QuadraticIneqResult {
         if (a === 0) {
+            if (b === 0) {
+                let result: boolean;
+                if (inequality === ">") result = c > 0;
+                else if (inequality === ">=") result = c >= 0;
+                else if (inequality === "<") result = c < 0;
+                else result = c <= 0;
+                return { discriminant: 0, roots: "None", solution: result ? "(-∞, ∞)" : "No solution" };
+            }
             const root = -c / b;
             let solution: string;
             if (inequality === ">") solution = b > 0 ? `(${root}, ∞)` : `(-∞, ${root})`;
@@ -144,17 +161,7 @@ export class Algebra {
 
         const realPart = -b / twoA;
         const imagPart = Math.sqrt(-discriminant) / twoA;
-        const fmtImag = imagPart === 1 ? "" : imagPart === -1 ? "" : `${Math.abs(Math.round(imagPart * 1e12) / 1e12)}`;
         const rp = Math.round(realPart * 1e12) / 1e12;
-
-        const formatComplex = (rp: number, im: number, flipSign: boolean): string => {
-            const imag = flipSign ? -im : im;
-            const fmtI = imag === 1 ? "" : imag === -1 ? "" : `${Math.abs(Math.round(imag * 1e12) / 1e12)}`;
-            const sign = imag < 0 ? "-" : (rp === 0 ? "" : "+");
-            const rpStr = rp === 0 ? "" : `${rp}`;
-            const iStr = fmtI === "" ? "i" : `${fmtI}i`;
-            return `${rpStr}${sign}${iStr}`.replace(/^\+/, "").trim();
-        };
 
         const root1 = formatComplex(rp, imagPart, false);
         const root2 = formatComplex(rp, imagPart, true);
