@@ -2,3 +2,6 @@
 package-lock.json
 /build
 .env
+/test*
+*.test.ts
+*.test.js

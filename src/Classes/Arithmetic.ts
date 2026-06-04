@@ -3,35 +3,35 @@ export class Arithmetic {
         return firstNumber + secondNumber;
     }
 
-    static subtract(minuend: number, subtrahend: number) {
+    static subtract(minuend: number, subtrahend: number): number {
         return minuend - subtrahend;
     }
 
-    static multiply(firstNumber: number, secondNumber: number) {
+    static multiply(firstNumber: number, secondNumber: number): number {
         return firstNumber * secondNumber;
     }
 
-    static division(numerator: number, denominator: number) {
+    static division(numerator: number, denominator: number): number {
         return numerator / denominator;
     }
 
-    static sum(numbers: number[]) {
+    static sum(numbers: number[]): number {
         return numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     }
 
-    static floor(number: number) {
+    static floor(number: number): number {
         return Math.floor(number);
     }
 
-    static ceil(number: number) {
+    static ceil(number: number): number {
         return Math.ceil(number);
     }
 
-    static round(number: number) {
+    static round(number: number): number {
         return Math.round(number);
     }
 
-    static modulo(numerator: number, denominator: number) {
+    static modulo(numerator: number, denominator: number): number {
         return numerator % denominator;
     }
 

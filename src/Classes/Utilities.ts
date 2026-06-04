@@ -1,8 +1,9 @@
 import { NumberTheory } from './NumberTheory.js';
+import type { FractionResult } from '../types.js';
 
 export class Utilities {
     static clamp(value: number, min: number, max: number): number {
-        if (isNaN(value)) return min;
+        if (Number.isNaN(value)) return min;
         return Math.max(min, Math.min(max, value));
     }
 
@@ -43,11 +44,11 @@ export class Utilities {
     static baseConvert(value: string, fromBase: number, toBase: number): string {
         if (fromBase < 2 || fromBase > 36 || toBase < 2 || toBase > 36) return '';
         const decimal = parseInt(value, fromBase);
-        if (isNaN(decimal)) return '';
+        if (Number.isNaN(decimal)) return '';
         return decimal.toString(toBase).toUpperCase();
     }
 
-    static fractionSimplify(numerator: number, denominator: number): { numerator: number; denominator: number } {
+    static fractionSimplify(numerator: number, denominator: number): FractionResult {
         if (!Number.isInteger(numerator) || !Number.isInteger(denominator)) {
             return { numerator: NaN, denominator: NaN };
         }

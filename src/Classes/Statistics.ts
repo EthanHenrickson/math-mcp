@@ -1,10 +1,12 @@
+import type { ModeResult, QuartileResult } from '../types.js';
+
 export class Statistics {
-    static mean(numbers: number[]) {
+    static mean(numbers: number[]): number {
         const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         return sum / numbers.length;
     }
 
-    static median(numbers: number[]) {
+    static median(numbers: number[]): number {
         if (numbers.length === 0) return NaN;
         const sorted = [...numbers].sort((a, b) => a - b);
         const mid = sorted.length / 2;
@@ -15,7 +17,7 @@ export class Statistics {
         }
     }
 
-    static mode(numbers: number[]) {
+    static mode(numbers: number[]): ModeResult {
         const modeMap = new Map<number, number>();
 
         numbers.forEach((value) => {
@@ -46,11 +48,11 @@ export class Statistics {
         };
     }
 
-    static min(numbers: number[]) {
+    static min(numbers: number[]): number {
         return Math.min(...numbers);
     }
 
-    static max(numbers: number[]) {
+    static max(numbers: number[]): number {
         return Math.max(...numbers);
     }
 
@@ -76,7 +78,7 @@ export class Statistics {
         return Math.sqrt(Statistics.variancePopulation(numbers));
     }
 
-    static quartiles(numbers: number[]): { q1: number; q2: number; q3: number } {
+    static quartiles(numbers: number[]): QuartileResult {
         if (numbers.length === 0) return { q1: NaN, q2: NaN, q3: NaN };
         if (numbers.length === 1) {
             const v = numbers[0];
@@ -139,7 +141,7 @@ export class Statistics {
 
     static correlation(x: number[], y: number[]): number {
         const cov = Statistics.covariance(x, y);
-        if (isNaN(cov)) return NaN;
+        if (Number.isNaN(cov)) return NaN;
         const stdX = Statistics.standardDeviationSample(x);
         const stdY = Statistics.standardDeviationSample(y);
         if (stdX === 0 || stdY === 0) return NaN;

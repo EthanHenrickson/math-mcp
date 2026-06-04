@@ -1,3 +1,5 @@
+import type { ExtendedGcdResult } from '../types.js';
+
 export class NumberTheory {
     static gcd(a: number, b: number): number {
         a = Math.abs(a);
@@ -79,7 +81,7 @@ export class NumberTheory {
         return result;
     }
 
-    static extendedGcd(a: number, b: number): { gcd: number; x: number; y: number } {
+    static extendedGcd(a: number, b: number): ExtendedGcdResult {
         if (a === 0 && b === 0) return { gcd: 0, x: 0, y: 0 };
         let oldR = Math.abs(a), r = Math.abs(b);
         let oldS = 1, s = 0;

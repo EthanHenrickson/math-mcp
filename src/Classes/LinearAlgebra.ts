@@ -56,7 +56,7 @@ export class LinearAlgebra {
 
     static vectorNormalize(v: number[]): number[] {
         const mag = LinearAlgebra.vectorMagnitude(v);
-        if (mag === 0 || isNaN(mag)) return [];
+        if (mag === 0 || Number.isNaN(mag)) return [];
         return v.map(val => val / mag);
     }
 }
