@@ -15,6 +15,7 @@ export class NumberTheory {
         return Math.abs(a * b) / NumberTheory.gcd(a, b);
     }
 
+    // trial division not miller-rabin, on purpose, fine for non crypto
     static isPrime(n: number): boolean {
         if (n < 2 || !Number.isInteger(n)) return false;
         if (n === 2) return true;
@@ -66,6 +67,7 @@ export class NumberTheory {
         return n % 2 !== 0;
     }
 
+    // O(log exp) square and multiply, used for rsa style stuff
     static modPow(base: number, exp: number, mod: number): number {
         if (!Number.isInteger(base) || !Number.isInteger(exp) || !Number.isInteger(mod)) return NaN;
         if (mod <= 0) return NaN;
@@ -82,6 +84,7 @@ export class NumberTheory {
         return result;
     }
 
+    // extended euclidean, returns bezout coefficients ax + by = gcd(a, b)
     static extendedGcd(a: number, b: number): ExtendedGcdResult {
         if (a === 0 && b === 0) return { gcd: 0, x: 0, y: 0 };
         let oldR = Math.abs(a), r = Math.abs(b);
@@ -106,6 +109,7 @@ export class NumberTheory {
         return ((x % m) + m) % m;
     }
 
+    // eulers totient via prime factorization, avoids iterating all numbers
     static totient(n: number): number {
         if (n <= 0 || !Number.isInteger(n)) return NaN;
         if (n === 1) return 1;
@@ -131,6 +135,7 @@ export class NumberTheory {
         return sqrt * sqrt === n;
     }
 
+    // casting out nines, n mod 9 with 0 mapped to 9 (0 stays 0)
     static digitalRoot(n: number): number {
         if (!Number.isInteger(n)) return NaN;
         n = Math.abs(n);
@@ -138,6 +143,7 @@ export class NumberTheory {
         return 1 + ((n - 1) % 9);
     }
 
+    // maxIter safety valve, collatz unproven and some numbers take >10k steps
     static collatz(n: number): number[] {
         if (n <= 0 || !Number.isInteger(n)) return [];
         const sequence: number[] = [n];

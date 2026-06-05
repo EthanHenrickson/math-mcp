@@ -23,6 +23,7 @@ export class Utilities {
         return ((newValue - oldValue) / oldValue) * 100;
     }
 
+    // math.random not crypto secure, dont use for tokens
     static randomInt(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -48,6 +49,7 @@ export class Utilities {
         return decimal.toString(toBase).toUpperCase();
     }
 
+    // sign in numerator, denominator always positive, reduced by gcd
     static fractionSimplify(numerator: number, denominator: number): FractionResult {
         if (!Number.isInteger(numerator) || !Number.isInteger(denominator)) {
             return { numerator: NaN, denominator: NaN };

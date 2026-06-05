@@ -5,16 +5,16 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "build": "node node_modules/typescript/lib/tsc.js && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "start": "node build/index.js",
     "stdio": "npm run build && npm run start",
-    "test": "npx vitest run src/"
+    "lint": "node node_modules/typescript/lib/tsc.js --noEmit",
+    "test": "node node_modules/vitest/dist/cli.js run src/"
   },
   "keywords": [],
   "files": [
     "build"
   ],
-  "author": "",
   "license": "MIT",
   "description": "MCP server providing 111 K-12 math tools across arithmetic, statistics, trigonometry, algebra, number theory, linear algebra, hyperbolic trig, geometry, and finance",
   "dependencies": {

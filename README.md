@@ -1,6 +1,6 @@
 # Math-MCP
 
-A Model Context Protocol (MCP) server that provides **105 mathematical functions** to Large Language Models (LLMs). Covers arithmetic, statistics, trigonometry, algebra, number theory, linear algebra, hyperbolic trig, geometry, finance, and general utilities.
+A Model Context Protocol (MCP) server that provides **111 mathematical functions** to Large Language Models (LLMs). Covers arithmetic, statistics, trigonometry, algebra, number theory, linear algebra, hyperbolic trig, geometry, finance, and general utilities.
 
 <a href="https://glama.ai/mcp/servers/exa5lt8dgd">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/exa5lt8dgd/badge" alt="Math-MCP MCP server" />
@@ -13,7 +13,7 @@ A Model Context Protocol (MCP) server that provides **105 mathematical functions
 Clone the repo, install dependencies, and build:
 
 ```sh
-git clone https://github.com/YOUR_USER/math-mcp.git
+git clone https://github.com/your-username/math-mcp.git
 cd math-mcp
 npm install
 npm run build
@@ -100,7 +100,7 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 </details>
 
 <details>
-<summary><strong>Trigonometric</strong> (16 functions)</summary>
+<summary><strong>Trigonometric</strong> (17 functions)</summary>
 
 | Function | Description |
 |----------|-------------|
@@ -120,6 +120,7 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 | `lawOfCosines` | Third side via law of cosines |
 | `polarToCartesian` | Polar → Cartesian |
 | `cartesianToPolar` | Cartesian → Polar |
+| `sinusoidalFunction` | Properties of a·sin(k(x−d)) + c |
 
 </details>
 
@@ -138,7 +139,7 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 </details>
 
 <details>
-<summary><strong>Algebra</strong> (7 functions)</summary>
+<summary><strong>Algebra</strong> (11 functions)</summary>
 
 | Function | Description |
 |----------|-------------|
@@ -149,6 +150,10 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 | `exp` | e raised to a power |
 | `permutations` | P(n, r) = n!/(n-r)! |
 | `combinations` | C(n, r) = n!/(r!(n-r)!) |
+| `arithmeticSequence` | nth term, sum, and full sequence of AP |
+| `geometricSequence` | nth term, sum, and full sequence of GP |
+| `quadratic` | Solve ax² + bx + c = 0 (real & complex roots) |
+| `quadraticInequalities` | Solve ax² + bx + c >/≥/</≤ 0 |
 
 </details>
 
@@ -190,7 +195,7 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 </details>
 
 <details>
-<summary><strong>Geometry</strong> (4 functions)</summary>
+<summary><strong>Geometry</strong> (5 functions)</summary>
 
 | Function | Description |
 |----------|-------------|
@@ -198,6 +203,7 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 | `heronArea` | Triangle area via Heron's formula |
 | `circleArea` | Circle area |
 | `sphereVolume` | Sphere volume |
+| `lawOfSines` | Solve triangles (ASA, AAS, SSA) |
 
 </details>
 
@@ -236,12 +242,12 @@ Replace `PATH/TO` with the actual path to the cloned repo.
 |----------|-------|
 | Arithmetic | 15 |
 | Statistics | 23 |
-| Trigonometric | 16 |
+| Trigonometric | 17 |
 | Hyperbolic Trig | 6 |
-| Algebra | 7 |
+| Algebra | 11 |
 | Number Theory | 14 |
 | Linear Algebra | 7 |
-| Geometry | 4 |
+| Geometry | 5 |
 | Finance | 2 |
 | Utilities | 11 |
-| **Total** | **105** |
+| **Total** | **111** |

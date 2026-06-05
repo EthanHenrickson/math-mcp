@@ -1,6 +1,7 @@
 import type { LawOfSinesResult, Triangle } from '../types.js';
 
 export class Geometry {
+    // great-circle distance via haversine, 6371km earth radius, deg in km out
     static haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
         const R = 6371;
         const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -27,6 +28,7 @@ export class Geometry {
         return (4 / 3) * Math.PI * radius ** 3;
     }
 
+    // law of sines solver, handles the ambiguous ssa case too
     static lawOfSines(
         a?: number, b?: number, c?: number,
         A?: number, B?: number, C?: number

@@ -47,6 +47,7 @@ export class Arithmetic {
         return Math.cbrt(number);
     }
 
+    // js ** cant do negative base + fractional exponent, so negate, root, negate back for odd roots
     static root(number: number, n: number): number {
         if (number < 0 && n % 2 === 1) {
             return -((-number) ** (1 / n));
@@ -58,6 +59,7 @@ export class Arithmetic {
         return Math.abs(number);
     }
 
+    // 170! is the last factorial before double precision overflows
     static factorial(number: number): number {
         if (number < 0 || !Number.isInteger(number)) return NaN;
         if (number === 0 || number === 1) return 1;

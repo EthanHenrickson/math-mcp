@@ -56,6 +56,7 @@ export class Statistics {
         return Math.max(...numbers);
     }
 
+    // bessels correction, divide by n-1 for unbiased sample
     static varianceSample(numbers: number[]): number {
         if (numbers.length < 2) return NaN;
         const mean = Statistics.mean(numbers);
@@ -131,6 +132,7 @@ export class Statistics {
         return numbers.length / reciprocalSum;
     }
 
+    // sample covariance, n-1 same as variance
     static covariance(x: number[], y: number[]): number {
         if (x.length !== y.length || x.length < 2) return NaN;
         const meanX = Statistics.mean(x);
@@ -148,6 +150,7 @@ export class Statistics {
         return cov / (stdX * stdY);
     }
 
+    // positive skew = right tail, negative = left tail, 0 = symmetric
     static skewness(numbers: number[]): number {
         if (numbers.length < 3) return NaN;
         const mean = Statistics.mean(numbers);
@@ -158,6 +161,7 @@ export class Statistics {
         return m3 / (variance ** 1.5);
     }
 
+    // excess kurtosis, normal = 0, positive = heavier tails, negative = lighter
     static kurtosis(numbers: number[]): number {
         if (numbers.length < 4) return NaN;
         const mean = Statistics.mean(numbers);
@@ -175,6 +179,7 @@ export class Statistics {
         return values.reduce((acc, val, i) => acc + val * weights[i], 0) / weightSum;
     }
 
+    // z = 0 is average, z = 2 is 2 std above, assumes normality for p values
     static zScore(value: number, numbers: number[]): number {
         if (numbers.length < 2) return NaN;
         const mean = Statistics.mean(numbers);

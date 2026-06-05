@@ -57,6 +57,7 @@ export class Trigonometric {
         return Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC));
     }
 
+    // (r, theta) => (x, y), x = r cos(theta), y = r sin(theta)
     static polarToCartesian(r: number, theta: number): CartesianCoordResult {
         return {
             x: r * Math.cos(theta),
@@ -64,6 +65,7 @@ export class Trigonometric {
         };
     }
 
+    // (x, y) => (r, theta), theta in [-pi, pi], atan2 handles the quadrant
     static cartesianToPolar(x: number, y: number): PolarCoordResult {
         return {
             r: Math.sqrt(x ** 2 + y ** 2),
@@ -71,6 +73,7 @@ export class Trigonometric {
         };
     }
 
+    // y = a*sin(k(x + d)) + c, k=0 means infinite period (no oscillation)
     static sinusoidalFunction(a: number, k: number, d: number, c: number): SinusoidalResult {
         const amplitude = Math.abs(a);
         if (k === 0) {

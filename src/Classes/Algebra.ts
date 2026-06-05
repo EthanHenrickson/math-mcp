@@ -1,6 +1,7 @@
 import { Arithmetic } from './Arithmetic.js';
 import type { ArithmeticSequenceResult, GeometricSequenceResult, InequalityOp, QuadraticIneqResult, QuadraticResult } from '../types.js';
 
+// 1e12 rounding prevents floating point artifacts like 0.0000000000001 in output
 function formatComplex(rp: number, im: number, flipSign: boolean): string {
     const imag = flipSign ? -im : im;
     const fmtI = imag === 1 ? "" : imag === -1 ? "" : `${Math.abs(Math.round(imag * 1e12) / 1e12)}`;
@@ -11,6 +12,7 @@ function formatComplex(rp: number, im: number, flipSign: boolean): string {
 }
 
 export class Algebra {
+    // log base 1 = division by zero (ln(1) = 0), same reason its undefined in math
     static log(base: number, value: number): number {
         if (base === 1) return NaN;
         return Math.log(value) / Math.log(base);
@@ -140,6 +142,10 @@ export class Algebra {
         return { discriminant, roots, solution };
     }
 
+    // the quadratic formula: x = (-b ± sqrt(b² - 4ac)) / 2a
+    // when a=0 it falls back to linear equation: bx + c = 0
+    // when both a=0 and b=0 theres no solution unless c=0 too
+    // discriminant < 0 means complex roots, we include them
     static quadratic(a: number, b: number, c: number): QuadraticResult {
         if (a === 0) {
             if (b === 0) {
