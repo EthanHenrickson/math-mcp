@@ -85,13 +85,13 @@ describe("Trigonometric", () => {
     const r = Trigonometric.sinusoidalFunction(-5, 1, 0, 0);
     expect(r.amplitude).toBe(5);
   });
-  it("sinusoidalFunction: positive d shifts right", () => {
+  it("sinusoidalFunction: positive d shifts left (x + d convention)", () => {
     const r = Trigonometric.sinusoidalFunction(1, 1, 2, 0);
-    expect(r.phaseShiftDescription).toContain("right");
-  });
-  it("sinusoidalFunction: negative d shifts left", () => {
-    const r = Trigonometric.sinusoidalFunction(1, 1, -1.5, 0);
     expect(r.phaseShiftDescription).toContain("left");
+  });
+  it("sinusoidalFunction: negative d shifts right (x + d convention)", () => {
+    const r = Trigonometric.sinusoidalFunction(1, 1, -1.5, 0);
+    expect(r.phaseShiftDescription).toContain("right");
   });
   it("sinusoidalFunction: d=0 no shift", () => {
     const r = Trigonometric.sinusoidalFunction(1, 2, 0, 0);

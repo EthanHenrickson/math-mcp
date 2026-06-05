@@ -31,8 +31,9 @@ export class Arithmetic {
         return Math.round(number);
     }
 
+    // js % is remainder not modulo, true modulo for negatives
     static modulo(numerator: number, denominator: number): number {
-        return numerator % denominator;
+        return ((numerator % denominator) + denominator) % denominator;
     }
 
     static power(base: number, exponent: number): number {
@@ -48,8 +49,10 @@ export class Arithmetic {
     }
 
     // js ** cant do negative base + fractional exponent, so negate, root, negate back for odd roots
+    // n=0 causes division by zero (1/0 = Infinity) which returns NaN anyway
     static root(number: number, n: number): number {
-        if (number < 0 && n % 2 === 1) {
+        if (n === 0) return NaN;
+        if (number < 0 && n % 2 !== 0) {
             return -((-number) ** (1 / n));
         }
         return number ** (1 / n);

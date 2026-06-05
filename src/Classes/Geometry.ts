@@ -2,13 +2,15 @@ import type { LawOfSinesResult, Triangle } from '../types.js';
 
 export class Geometry {
     // great-circle distance via haversine, 6371km earth radius, deg in km out
+    // clamp a to [0,1] to prevent NaN from fp rounding near antipodal points
     static haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
         const R = 6371;
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
         const a = Math.sin(dLat / 2) ** 2 +
             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
-        return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const clamped = Math.min(1, Math.max(0, a));
+        return 2 * R * Math.atan2(Math.sqrt(clamped), Math.sqrt(1 - clamped));
     }
 
     static heronArea(a: number, b: number, c: number): number {
@@ -102,7 +104,7 @@ export class Geometry {
             return {
                 solution1: null, solution2: null,
                 ambiguous: false, solutionCount: 0,
-                description: "No valid triangle (side too short)"
+                description: "No valid triangle"
             };
         }
 

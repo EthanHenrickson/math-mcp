@@ -34,14 +34,21 @@ export class Algebra {
         return Math.exp(value);
     }
 
+    // iterative product avoids factorial overflow, e.g. permutations(171, 1) = 171 not Infinity
     static permutations(n: number, r: number): number {
         if (n < 0 || r < 0 || !Number.isInteger(n) || !Number.isInteger(r) || r > n) return NaN;
-        return Arithmetic.factorial(n) / Arithmetic.factorial(n - r);
+        let result = 1;
+        for (let i = n; i > n - r; i--) result *= i;
+        return result;
     }
 
+    // iterative with intermediate division to keep numbers manageable, avoids overflow
     static combinations(n: number, r: number): number {
         if (n < 0 || r < 0 || !Number.isInteger(n) || !Number.isInteger(r) || r > n) return NaN;
-        return Arithmetic.factorial(n) / (Arithmetic.factorial(r) * Arithmetic.factorial(n - r));
+        if (r > n - r) r = n - r;
+        let result = 1;
+        for (let i = 1; i <= r; i++) result = result * (n - r + i) / i;
+        return result;
     }
 
     static arithmeticSequence(a1: number, d: number, n: number): ArithmeticSequenceResult {
@@ -142,14 +149,11 @@ export class Algebra {
         return { discriminant, roots, solution };
     }
 
-    // the quadratic formula: x = (-b ± sqrt(b² - 4ac)) / 2a
-    // when a=0 it falls back to linear equation: bx + c = 0
-    // when both a=0 and b=0 theres no solution unless c=0 too
-    // discriminant < 0 means complex roots, we include them
     static quadratic(a: number, b: number, c: number): QuadraticResult {
         if (a === 0) {
             if (b === 0) {
-                return { discriminant: 0, root1: "No solution", root2: "No solution" };
+                // 0=0 has infinite solutions, anything else has none
+                return { discriminant: 0, root1: c === 0 ? "All real numbers" : "No solution", root2: "No solution" };
             }
             const root = -c / b;
             return { discriminant: 0, root1: `${root}`, root2: `${root}` };

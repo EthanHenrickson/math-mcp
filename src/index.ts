@@ -616,7 +616,7 @@ Max: ${r.maxValue}, Min: ${r.minValue}`)
         n: z.number().describe("Compounds/year").default(1)
     }, ({ futureValue, rate, time, n }) => Finance.presentValue(futureValue, rate, time, n))
 
-    return mathServer.server
+    return mathServer
 }
 
 async function main() {

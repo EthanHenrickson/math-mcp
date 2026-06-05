@@ -3,7 +3,7 @@ import type { FractionResult } from '../types.js';
 
 export class Utilities {
     static clamp(value: number, min: number, max: number): number {
-        if (Number.isNaN(value)) return min;
+        if (Number.isNaN(value)) return NaN;
         return Math.max(min, Math.min(max, value));
     }
 
@@ -12,19 +12,23 @@ export class Utilities {
     }
 
     static mapRange(value: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
+        if (inMin === inMax) return NaN;
         return ((value - inMin) / (inMax - inMin)) * (outMax - outMin) + outMin;
     }
 
     static percentageOf(part: number, whole: number): number {
+        if (whole === 0) return NaN;
         return (part / whole) * 100;
     }
 
     static percentageChange(oldValue: number, newValue: number): number {
+        if (oldValue === 0) return NaN;
         return ((newValue - oldValue) / oldValue) * 100;
     }
 
     // math.random not crypto secure, dont use for tokens
     static randomInt(min: number, max: number): number {
+        if (min > max) [min, max] = [max, min];
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 

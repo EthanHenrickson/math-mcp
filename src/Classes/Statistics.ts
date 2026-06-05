@@ -49,10 +49,12 @@ export class Statistics {
     }
 
     static min(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
         return Math.min(...numbers);
     }
 
     static max(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
         return Math.max(...numbers);
     }
 
@@ -99,6 +101,7 @@ export class Statistics {
     }
 
     static percentile(numbers: number[], percentile: number): number {
+        if (numbers.length === 0 || percentile < 0 || percentile > 100) return NaN;
         const sorted = [...numbers].sort((a, b) => a - b);
         const index = (percentile / 100) * (sorted.length - 1);
         const lower = Math.floor(index);

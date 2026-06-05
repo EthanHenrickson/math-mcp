@@ -2,6 +2,7 @@ import type { ExtendedGcdResult } from '../types.js';
 
 export class NumberTheory {
     static gcd(a: number, b: number): number {
+        if (!Number.isInteger(a) || !Number.isInteger(b)) return NaN;
         a = Math.abs(a);
         b = Math.abs(b);
         while (b !== 0) {
@@ -11,8 +12,9 @@ export class NumberTheory {
     }
 
     static lcm(a: number, b: number): number {
+        if (!Number.isInteger(a) || !Number.isInteger(b)) return NaN;
         if (a === 0 || b === 0) return 0;
-        return Math.abs(a * b) / NumberTheory.gcd(a, b);
+        return Math.abs(a / NumberTheory.gcd(a, b) * b);
     }
 
     // trial division not miller-rabin, on purpose, fine for non crypto
@@ -28,7 +30,7 @@ export class NumberTheory {
     }
 
     static primeFactors(n: number): number[] {
-        if (n <= 1) return [];
+        if (n <= 1 || !Number.isInteger(n)) return [];
         const factors: number[] = [];
         let num = n;
         while (num % 2 === 0) {
@@ -47,6 +49,7 @@ export class NumberTheory {
 
     static fibonacci(n: number): number {
         if (n < 0 || !Number.isInteger(n)) return NaN;
+        if (n > 10000) return NaN;
         if (n === 0) return 0;
         if (n === 1) return 1;
         let a = 0;
@@ -103,7 +106,7 @@ export class NumberTheory {
 
     static modInverse(a: number, m: number): number {
         if (!Number.isInteger(a) || !Number.isInteger(m)) return NaN;
-        if (m <= 0) return NaN;
+        if (m <= 1) return NaN;
         const { gcd, x } = NumberTheory.extendedGcd(a, m);
         if (gcd !== 1) return NaN;
         return ((x % m) + m) % m;
@@ -111,6 +114,7 @@ export class NumberTheory {
 
     // eulers totient via prime factorization, avoids iterating all numbers
     static totient(n: number): number {
+        if (!Number.isInteger(n)) return NaN;
         if (n <= 0 || !Number.isInteger(n)) return NaN;
         if (n === 1) return 1;
         let result = n;
@@ -150,6 +154,7 @@ export class NumberTheory {
         let current = n;
         let maxIter = 100000;
         while (current !== 1 && maxIter > 0) {
+            if (!Number.isFinite(current)) break;
             if (current % 2 === 0) current /= 2;
             else current = 3 * current + 1;
             sequence.push(current);

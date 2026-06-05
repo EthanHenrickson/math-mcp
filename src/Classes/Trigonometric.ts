@@ -53,8 +53,9 @@ export class Trigonometric {
         return Math.hypot(a, b);
     }
 
+    // fp rounding near 0 or pi can push the radicand slightly negative, clamp to 0
     static lawOfCosines(a: number, b: number, angleC: number): number {
-        return Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC));
+        return Math.sqrt(Math.max(0, a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC)));
     }
 
     // (r, theta) => (x, y), x = r cos(theta), y = r sin(theta)
@@ -73,13 +74,13 @@ export class Trigonometric {
         };
     }
 
-    // y = a*sin(k(x + d)) + c, k=0 means infinite period (no oscillation)
+    // y = a*sin(k(x + d)) + c, so positive d shifts left (x + d moves origin left)
     static sinusoidalFunction(a: number, k: number, d: number, c: number): SinusoidalResult {
         const amplitude = Math.abs(a);
         if (k === 0) {
             let phaseShiftDescription: string;
-            if (d > 0) phaseShiftDescription = `${d} units right`;
-            else if (d < 0) phaseShiftDescription = `${Math.abs(d)} units left`;
+            if (d > 0) phaseShiftDescription = `${d} units left`;
+            else if (d < 0) phaseShiftDescription = `${Math.abs(d)} units right`;
             else phaseShiftDescription = "No phase shift";
             return {
                 amplitude, period: Infinity, periodDegrees: Infinity,
@@ -97,9 +98,9 @@ export class Trigonometric {
 
         let phaseShiftDescription: string;
         if (d > 0) {
-            phaseShiftDescription = `${d} units right`;
+            phaseShiftDescription = `${d} units left`;
         } else if (d < 0) {
-            phaseShiftDescription = `${Math.abs(d)} units left`;
+            phaseShiftDescription = `${Math.abs(d)} units right`;
         } else {
             phaseShiftDescription = "No phase shift";
         }
