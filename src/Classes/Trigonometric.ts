@@ -1,82 +1,113 @@
+import type { CartesianCoordResult, PolarCoordResult, SinusoidalResult } from '../types.js';
+
 export class Trigonometric {
-
-    /**
-     * Calculate the sin of a number in radians
-     * @param number - The number to find the sin of
-     * @returns The sin of a number in radians
-     */
-    static sin(number: number) {
-        const sin = Math.sin(number)
-        return sin
+    static sin(number: number): number {
+        return Math.sin(number);
     }
 
-    /**
-     * Calculate the arcsin of a number in radians
-     * @param number - The number to find the arcsin of
-     * @returns The arcsin of a number in radians
-     */
-    static arcsin(number: number) {
-        const arcsin = Math.asin(number)
-        return arcsin
+    static arcsin(number: number): number {
+        return Math.asin(number);
     }
 
-    /**
-     * Calculate the cos of a number in radians
-     * @param number - The number to find the cos of
-     * @returns The cos of a number in radians
-     */
-    static cos(number: number) {
-        const cos = Math.cos(number)
-        return cos
+    static cos(number: number): number {
+        return Math.cos(number);
     }
 
-    /**
-     * Calculate the arccos of a number in radians
-     * @param number - The number to find the arccos of
-     * @returns The arccos of a number in radians
-     */
-    static arccos(number: number) {
-        const arccos = Math.acos(number)
-        return arccos
+    static arccos(number: number): number {
+        return Math.acos(number);
     }
 
-    /**
-     * Calculate the tangent of a number in radians
-     * @param number - The number to find the tangent of
-     * @returns The tangent of a number in radians
-     */
-    static tan(number: number) {
-        const tangent = Math.tan(number)
-        return tangent
+    static tan(number: number): number {
+        return Math.tan(number);
     }
 
-    /**
-     * Calculate the arc tangent of a number in radians
-     * @param number - The number to find the arc tangent of
-     * @returns The arc tangent of a number in radians
-     */
-    static arctan(number: number) {
-        const arctangent = Math.atan(number)
-        return arctangent
+    static arctan(number: number): number {
+        return Math.atan(number);
     }
 
-    /**
-     * Converts a radian into its equivalent value in degrees
-     * @param number - The number to get the degree of
-     * @returns The degree of the number
-     */
-    static radiansToDegrees(number: number) {
-        const degrees = number * (180 / Math.PI)
-        return degrees
+    static radiansToDegrees(number: number): number {
+        return number * (180 / Math.PI);
     }
 
-    /**
-     * Converts a degree into its equivalent value in radians
-     * @param number - The number to get the radians of
-     * @returns The radians of the number
-     */
-    static degreesToRadians(number: number) {
-        const radians = number * (Math.PI / 180)
-        return radians
+    static degreesToRadians(number: number): number {
+        return number * (Math.PI / 180);
+    }
+
+    static csc(number: number): number {
+        return 1 / Math.sin(number);
+    }
+
+    static sec(number: number): number {
+        return 1 / Math.cos(number);
+    }
+
+    static cot(number: number): number {
+        return 1 / Math.tan(number);
+    }
+
+    static arctan2(y: number, x: number): number {
+        return Math.atan2(y, x);
+    }
+
+    static hypot(a: number, b: number): number {
+        return Math.hypot(a, b);
+    }
+
+    // fp rounding near 0 or pi can push the radicand slightly negative, clamp to 0
+    static lawOfCosines(a: number, b: number, angleC: number): number {
+        return Math.sqrt(Math.max(0, a ** 2 + b ** 2 - 2 * a * b * Math.cos(angleC)));
+    }
+
+    // (r, theta) => (x, y), x = r cos(theta), y = r sin(theta)
+    static polarToCartesian(r: number, theta: number): CartesianCoordResult {
+        return {
+            x: r * Math.cos(theta),
+            y: r * Math.sin(theta)
+        };
+    }
+
+    // (x, y) => (r, theta), theta in [-pi, pi], atan2 handles the quadrant
+    static cartesianToPolar(x: number, y: number): PolarCoordResult {
+        return {
+            r: Math.sqrt(x ** 2 + y ** 2),
+            theta: Math.atan2(y, x)
+        };
+    }
+
+    // y = a*sin(k(x + d)) + c, so positive d shifts left (x + d moves origin left)
+    static sinusoidalFunction(a: number, k: number, d: number, c: number): SinusoidalResult {
+        const amplitude = Math.abs(a);
+        if (k === 0) {
+            let phaseShiftDescription: string;
+            if (d > 0) phaseShiftDescription = `${d} units left`;
+            else if (d < 0) phaseShiftDescription = `${Math.abs(d)} units right`;
+            else phaseShiftDescription = "No phase shift";
+            return {
+                amplitude, period: Infinity, periodDegrees: Infinity,
+                phaseShift: d, phaseShiftDescription,
+                verticalShift: c, midline: `y = ${c}`, range: `[${c}, ${c}]`,
+                maxValue: c, minValue: c
+            };
+        }
+        const period = 2 * Math.PI / Math.abs(k);
+        const periodDegrees = 360 / Math.abs(k);
+        const phaseShift = d;
+        const verticalShift = c;
+        const maxValue = c + amplitude;
+        const minValue = c - amplitude;
+
+        let phaseShiftDescription: string;
+        if (d > 0) {
+            phaseShiftDescription = `${d} units left`;
+        } else if (d < 0) {
+            phaseShiftDescription = `${Math.abs(d)} units right`;
+        } else {
+            phaseShiftDescription = "No phase shift";
+        }
+
+        const midline = `y = ${c}`;
+        const range = `[${minValue}, ${maxValue}]`;
+
+        return { amplitude, period, periodDegrees, phaseShift, phaseShiftDescription, verticalShift, midline, range, maxValue, minValue };
     }
 }

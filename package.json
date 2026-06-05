@@ -1,22 +1,22 @@
 {
   "name": "math-mcp",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "main": "build/index.js",
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "build": "node node_modules/typescript/lib/tsc.js && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "start": "node build/index.js",
     "stdio": "npm run build && npm run start",
-    "test": "npx vitest run src/"
+    "lint": "node node_modules/typescript/lib/tsc.js --noEmit",
+    "test": "node node_modules/vitest/dist/cli.js run src/"
   },
   "keywords": [],
   "files": [
     "build"
   ],
-  "author": "",
   "license": "MIT",
-  "description": "",
+  "description": "MCP server providing 111 K-12 math tools across arithmetic, statistics, trigonometry, algebra, number theory, linear algebra, hyperbolic trig, geometry, and finance",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.0",
     "zod": "^3.24.2"

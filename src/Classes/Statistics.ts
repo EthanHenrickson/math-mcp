@@ -1,60 +1,33 @@
+import type { ModeResult, QuartileResult } from '../types.js';
+
 export class Statistics {
-
-    /**
-     * Calculate the arithmetic mean (average) of an array of numbers
-     * @param numbers - Array of numbers to calculate the mean of
-     * @returns The arithmetic mean value
-     */
-    static mean(numbers: number[]) {
-        // Calculate sum and divide by the count of numbers
+    static mean(numbers: number[]): number {
         const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        const mean = sum / numbers.length;
-
-        return mean
+        return sum / numbers.length;
     }
 
-    /**
-     * Calculate the median (middle value) of an array of numbers
-     * @param numbers - Array of numbers to calculate the median of
-     * @returns The median value
-     */
-    static median(numbers: number[]) {
-        //Sort numbers
-        numbers.sort()
-
-        //Find the median index
-        const medianIndex = numbers.length / 2
-
-        let medianValue: number;
-        if (numbers.length % 2 !== 0) {
-            //If number is odd
-            medianValue = numbers[Math.floor(medianIndex)]
+    static median(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        const sorted = [...numbers].sort((a, b) => a - b);
+        const mid = sorted.length / 2;
+        if (sorted.length % 2 !== 0) {
+            return sorted[Math.floor(mid)];
         } else {
-            //If number is even
-            medianValue = (numbers[medianIndex] + numbers[medianIndex - 1]) / 2
+            return (sorted[mid] + sorted[mid - 1]) / 2;
         }
-
-        return medianValue
     }
 
-    /**
-     * Calculate the mode (most frequent value(s)) of an array of numbers
-     * @param numbers - Array of numbers to calculate the mode of
-     * @returns Object containing the mode value(s) and their frequency
-     */
-    static mode(numbers: number[]) {
-        const modeMap = new Map<number, number>()
+    static mode(numbers: number[]): ModeResult {
+        const modeMap = new Map<number, number>();
 
-        //Set each entry parameter into the map and assign it the number of times it appears in the list
         numbers.forEach((value) => {
             if (modeMap.has(value)) {
-                modeMap.set(value, modeMap.get(value)! + 1)
+                modeMap.set(value, modeMap.get(value)! + 1);
             } else {
-                modeMap.set(value, 1)
+                modeMap.set(value, 1);
             }
         });
 
-        //Find the max frequency in the map
         let maxFrequency = 0;
         for (const numberFrequency of modeMap.values()) {
             if (numberFrequency > maxFrequency) {
@@ -62,40 +35,175 @@ export class Statistics {
             }
         }
 
-        const modeResult = []
-        //Find the entries with the highest frequency
+        const modes: number[] = [];
         for (const [key, value] of modeMap.entries()) {
             if (value === maxFrequency) {
-                modeResult.push(key)
+                modes.push(key);
             }
         }
 
         return {
-            modeResult: modeResult,
-            maxFrequency: maxFrequency
+            modes,
+            maxFrequency
+        };
+    }
+
+    static min(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        return Math.min(...numbers);
+    }
+
+    static max(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        return Math.max(...numbers);
+    }
+
+    // bessels correction, divide by n-1 for unbiased sample
+    static varianceSample(numbers: number[]): number {
+        if (numbers.length < 2) return NaN;
+        const mean = Statistics.mean(numbers);
+        const sumSquaredDiffs = numbers.reduce((acc, val) => acc + (val - mean) ** 2, 0);
+        return sumSquaredDiffs / (numbers.length - 1);
+    }
+
+    static variancePopulation(numbers: number[]): number {
+        if (numbers.length < 1) return NaN;
+        const mean = Statistics.mean(numbers);
+        const sumSquaredDiffs = numbers.reduce((acc, val) => acc + (val - mean) ** 2, 0);
+        return sumSquaredDiffs / numbers.length;
+    }
+
+    static standardDeviationSample(numbers: number[]): number {
+        return Math.sqrt(Statistics.varianceSample(numbers));
+    }
+
+    static standardDeviationPopulation(numbers: number[]): number {
+        return Math.sqrt(Statistics.variancePopulation(numbers));
+    }
+
+    static quartiles(numbers: number[]): QuartileResult {
+        if (numbers.length === 0) return { q1: NaN, q2: NaN, q3: NaN };
+        if (numbers.length === 1) {
+            const v = numbers[0];
+            return { q1: v, q2: v, q3: v };
         }
+        const sorted = [...numbers].sort((a, b) => a - b);
+        const n = sorted.length;
+
+        const lowerHalf = sorted.slice(0, Math.floor(n / 2));
+        const upperHalf = sorted.slice(Math.ceil(n / 2));
+
+        return {
+            q1: Statistics.median(lowerHalf),
+            q2: Statistics.median(sorted),
+            q3: Statistics.median(upperHalf)
+        };
     }
 
-    /**
-     * Find the minimum value in an array of numbers
-     * @param numbers - Array of numbers to find the minimum of
-     * @returns The minimum value
-     */
-    static min(numbers: number[]) {
-        const minValue = Math.min(...numbers);
-
-        return minValue
+    static percentile(numbers: number[], percentile: number): number {
+        if (numbers.length === 0 || percentile < 0 || percentile > 100) return NaN;
+        const sorted = [...numbers].sort((a, b) => a - b);
+        const index = (percentile / 100) * (sorted.length - 1);
+        const lower = Math.floor(index);
+        const upper = Math.ceil(index);
+        if (lower === upper) return sorted[lower];
+        return sorted[lower] + (sorted[upper] - sorted[lower]) * (index - lower);
     }
 
-    /**
-     * Find the maximum value in an array of numbers
-     * @param numbers - Array of numbers to find the maximum of
-     * @returns The maximum value
-     */
-    static max(numbers: number[]) {
-        const maxValue = Math.max(...numbers);
-
-        return maxValue
+    static range(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        return Math.max(...numbers) - Math.min(...numbers);
     }
 
+    static interquartileRange(numbers: number[]): number {
+        const { q1, q3 } = Statistics.quartiles(numbers);
+        return q3 - q1;
+    }
+
+    static geometricMean(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        if (numbers.some(v => v < 0)) return NaN;
+        if (numbers.some(v => v === 0)) return 0;
+        const product = numbers.reduce((acc, val) => acc * val, 1);
+        return product ** (1 / numbers.length);
+    }
+
+    static harmonicMean(numbers: number[]): number {
+        if (numbers.length === 0) return NaN;
+        if (numbers.some(v => v === 0)) return NaN;
+        const reciprocalSum = numbers.reduce((acc, val) => acc + 1 / val, 0);
+        return numbers.length / reciprocalSum;
+    }
+
+    // sample covariance, n-1 same as variance
+    static covariance(x: number[], y: number[]): number {
+        if (x.length !== y.length || x.length < 2) return NaN;
+        const meanX = Statistics.mean(x);
+        const meanY = Statistics.mean(y);
+        const sum = x.reduce((acc, xi, i) => acc + (xi - meanX) * (y[i] - meanY), 0);
+        return sum / (x.length - 1);
+    }
+
+    static correlation(x: number[], y: number[]): number {
+        const cov = Statistics.covariance(x, y);
+        if (Number.isNaN(cov)) return NaN;
+        const stdX = Statistics.standardDeviationSample(x);
+        const stdY = Statistics.standardDeviationSample(y);
+        if (stdX === 0 || stdY === 0) return NaN;
+        return cov / (stdX * stdY);
+    }
+
+    // positive skew = right tail, negative = left tail, 0 = symmetric
+    static skewness(numbers: number[]): number {
+        if (numbers.length < 3) return NaN;
+        const mean = Statistics.mean(numbers);
+        const n = numbers.length;
+        const variance = numbers.reduce((acc, val) => acc + (val - mean) ** 2, 0) / n;
+        if (variance === 0) return NaN;
+        const m3 = numbers.reduce((acc, val) => acc + (val - mean) ** 3, 0) / n;
+        return m3 / (variance ** 1.5);
+    }
+
+    // excess kurtosis, normal = 0, positive = heavier tails, negative = lighter
+    static kurtosis(numbers: number[]): number {
+        if (numbers.length < 4) return NaN;
+        const mean = Statistics.mean(numbers);
+        const n = numbers.length;
+        const variance = numbers.reduce((acc, val) => acc + (val - mean) ** 2, 0) / n;
+        if (variance === 0) return NaN;
+        const m4 = numbers.reduce((acc, val) => acc + (val - mean) ** 4, 0) / n;
+        return m4 / (variance ** 2) - 3;
+    }
+
+    static weightedMean(values: number[], weights: number[]): number {
+        if (values.length !== weights.length || values.length === 0) return NaN;
+        const weightSum = weights.reduce((a, b) => a + b, 0);
+        if (weightSum === 0) return NaN;
+        return values.reduce((acc, val, i) => acc + val * weights[i], 0) / weightSum;
+    }
+
+    // z = 0 is average, z = 2 is 2 std above, assumes normality for p values
+    static zScore(value: number, numbers: number[]): number {
+        if (numbers.length < 2) return NaN;
+        const mean = Statistics.mean(numbers);
+        const std = Statistics.standardDeviationSample(numbers);
+        if (std === 0) return NaN;
+        return (value - mean) / std;
+    }
+
+    static movingAverage(numbers: number[], window: number): number[] {
+        if (numbers.length === 0 || window <= 0 || !Number.isInteger(window)) return [];
+        if (window > numbers.length) return [];
+        const result: number[] = [];
+        for (let i = 0; i <= numbers.length - window; i++) {
+            const sum = numbers.slice(i, i + window).reduce((a, b) => a + b, 0);
+            result.push(sum / window);
+        }
+        return result;
+    }
+
+    static standardError(numbers: number[]): number {
+        if (numbers.length < 2) return NaN;
+        return Statistics.standardDeviationSample(numbers) / Math.sqrt(numbers.length);
+    }
 }
