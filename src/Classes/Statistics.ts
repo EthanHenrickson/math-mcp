@@ -19,19 +19,20 @@ export class Statistics {
      * @returns The median value
      */
     static median(numbers: number[]) {
-        //Sort numbers
-        numbers.sort()
+        //Sort a copy numerically. sort() with no comparator compares the
+        //numbers as strings, so [3, 7, 8, 10, 41] sorts to [10, 3, 41, 7, 8]
+        const sorted = [...numbers].sort((a, b) => a - b)
 
         //Find the median index
-        const medianIndex = numbers.length / 2
+        const medianIndex = sorted.length / 2
 
         let medianValue: number;
-        if (numbers.length % 2 !== 0) {
+        if (sorted.length % 2 !== 0) {
             //If number is odd
-            medianValue = numbers[Math.floor(medianIndex)]
+            medianValue = sorted[Math.floor(medianIndex)]
         } else {
             //If number is even
-            medianValue = (numbers[medianIndex] + numbers[medianIndex - 1]) / 2
+            medianValue = (sorted[medianIndex] + sorted[medianIndex - 1]) / 2
         }
 
         return medianValue

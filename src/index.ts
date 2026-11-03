@@ -13,6 +13,20 @@ import { Arithmetic } from "./Classes/Arithmetic.js";
 import { Statistics } from "./Classes/Statistics.js";
 import { Trigonometric } from "./Classes/Trigonometric.js";
 
+/**
+ * Tool result for a zero denominator. Marked as an error so MCP clients
+ * see a failed call instead of a successful `Infinity` or `NaN`.
+ */
+function divisionByZero() {
+    return {
+        isError: true,
+        content: [{
+            type: "text" as const,
+            text: "Cannot divide by zero"
+        }]
+    }
+}
+
 export default function createServer() {
     const mathServer = new McpServer({
         name: "math",
@@ -81,6 +95,9 @@ export default function createServer() {
         numerator: z.number().describe("The number being divided (numerator)"),
         denominator: z.number().describe("The number to divide by (denominator)")
     }, async ({ numerator, denominator }) => {
+        if (denominator === 0) {
+            return divisionByZero()
+        }
         const value = Arithmetic.division(numerator, denominator)
 
         return {
@@ -115,6 +132,9 @@ export default function createServer() {
         numerator: z.number().describe("The number being divided (numerator)"),
         denominator: z.number().describe("The number to divide by (denominator)")
     }, async ({ numerator, denominator }) => {
+        if (denominator === 0) {
+            return divisionByZero()
+        }
         const value = Arithmetic.modulo(numerator, denominator)
         return {
             content: [{
