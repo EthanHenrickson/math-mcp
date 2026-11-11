@@ -71,6 +71,22 @@ describe("Statistics", () => {
             expect(result).toBe(3);
         });
 
+        it("should sort numerically, not as strings", () => {
+            const result = Statistics.median([3, 7, 8, 10, 41]);
+            expect(result).toBe(8);
+        });
+
+        it("should sort numerically for an even-length array", () => {
+            const result = Statistics.median([100, 9, 20, 3]);
+            expect(result).toBe(14.5);
+        });
+
+        it("should not reorder the array it is given", () => {
+            const numbers = [41, 3, 10];
+            Statistics.median(numbers);
+            expect(numbers).toEqual([41, 3, 10]);
+        });
+
         it("should calculate the median of decimal numbers", () => {
             const result = Statistics.median([1.1, 2.2, 3.3]);
             expect(result).toBe(2.2);
